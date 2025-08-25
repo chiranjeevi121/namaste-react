@@ -1,0 +1,110 @@
+What is the test command while creating package.json?
+The test command is the command that is run whenever you call npm test.
+
+This is important when integrating with continuous integration/continuous deployment tools (such as jenkins, codeship, teamcity).
+
+Example:
+- say you deploy a project to AWS or some other cloud hosting provider,
+- you can set up your infrastructure to automatically run npm test.
+- If there are problems within those tests, your ci/cd will automatically rollback before deploying.
+
+To execute tests
+You can use karma, jest, or selenium/nightmare/phantomjs or about any other test scripting library/framework that allows you to write and execute tests and then set the required command in scripts.test and finally run it from npm test.
+
+2)What's the difference between tilde(~) and caret(^) in package.json?
+~version “Approximately equivalent to version”, will automatically update you to all future patch versions that are backwards-compatible, without incrementing the minor version. ~1.2.3 will use releases from 1.2.3 to < 1.3.0.
+
+^version “Compatible with version”, will automatically update you to all future minor/patch versions that are backwards-compatible, without incrementing the major version. ^1.2.3 will use releases from 1.2.3 to < 2.0.0.
+3)What is the role of the package-lock.json?
+package-lock.json is automatically generated for any operations where npm modifies either the node_modules tree, or package.json. It describes the exact tree that was generated, such that subsequent installs are able to generate identical trees, regardless of intermediate dependency updates.
+
+This file is intended to be committed into source repositories, and serves various purposes:
+
+Describe a single representation of a dependency tree such that teammates, deployments, and continuous integration are guaranteed to install exactly the same dependencies.
+
+Provide a facility for users to "time-travel" to previous states of node_modules without having to commit the directory itself.
+
+To facilitate greater visibility of tree changes through readable source control diffs.
+
+And optimize the installation process by allowing npm to skip repeated metadata resolutions for previously-installed packages."
+
+To answer jrahhali's question below about just using the package.json with exact version numbers. Bear in mind that your package.json contains only your direct dependencies, not the dependencies of your dependencies (sometimes called nested or transitive dependencies). This means with the standard package.json you can't control the versions of those nested dependencies, referencing them directly or as peer dependencies won't help as you also don't control the version tolerance that your direct dependencies define for these nested dependencies.
+
+Even if you lock down the versions of your direct dependencies you cannot 100% guarantee that your full dependency tree will be identical every time. Secondly you might want to allow non-breaking changes (based on semantic versioning) of your direct dependencies which gives you even less control of nested dependencies plus you again can't guarantee that your direct dependencies won't at some point break semantic versioning rules themselves.
+
+The solution to all this is the package-lock.json file which as described above locks in the versions of the full dependency tree. This allows you to guarantee your dependency tree for other developers or for releases, whilst still allowing testing of new dependency versions (direct or indirect) using your standard package.json.
+4)what is package.json
+The package.json file is a manifest file in Node.js and JavaScript projects that provides metadata about the project and its dependencies. It is a fundamental component for managing packages and project configurations within the Node Package Manager (npm) ecosystem.
+Key aspects of package.json include: 
+Project Metadata: It stores essential information about the project, such as its name, version, description, author, license, and repository details.
+Dependency Management: It lists the dependencies (packages required for the project to run in production) and devDependencies (packages needed only for development, testing, or building) that the project relies on. This allows for easy installation of all necessary packages using commands like npm install.
+Scripts: It defines custom scripts that can automate various tasks within the project, such as running tests, building the project, starting a development server, or deploying the application. These scripts are executed using npm run <script-name>.
+Configuration: It can also store configuration settings for various tools and libraries used in the project, such as linters, bundlers, and testing frameworks
+what is a bundlers?
+
+A bundler in programming, particularly prominent in web development, is a tool that takes multiple source files (such as JavaScript, CSS, images, and other assets) and combines them into one or a few optimized files, known as "bundles." This process is crucial for improving application performance and managing dependencies efficiently. 
+Key functions of a bundler include:
+Module Concatenation: It analyzes dependencies between modules and combines them into a single file or a set of files, reducing the number of HTTP requests a browser needs to make, which leads to faster page load times.
+Transpilation: Bundlers can integrate with transpilers (like Babel) to convert code written in newer language versions (e.g., ES6+ JavaScript, TypeScript) into older, more widely supported versions for broader browser compatibility.
+Minification: They reduce the size of the bundled files by removing unnecessary characters like whitespace, comments, and shortening variable names, further enhancing load speed.
+Code Splitting: Modern bundlers can split the application's code into smaller, more manageable bundles that can be loaded on demand, improving initial load times and overall performance.
+Tree Shaking: This optimization technique removes unused code from the final bundles, ensuring that only necessary code is included, resulting in smaller file sizes.
+Asset Management: Beyond code, bundlers can also process and optimize other assets like images, fonts, and stylesheets, integrating them into the bundling process.
+Why bundlers are essential:
+Performance Optimization: By reducing HTTP requests and file sizes, bundlers significantly improve application loading speed and overall performance.
+Dependency Management: They provide a structured way to manage and resolve dependencies between different parts of an application, preventing issues like global namespace pollution.
+Modular Development: Bundlers enable developers to write code in a modular fashion, breaking down large applications into smaller, reusable components, which improves code organization and maintainability.
+Development Workflow: They streamline the development workflow by automating tasks like transpilation, optimization, and asset processing, allowing developers to focus on writing code.
+5)what is npm?
+113
+
+npm is a package manager for Node.js with hundreds of thousands of packages. Although it does create some of your directory structure/organization, this is not the main purpose.
+
+The main goal, as you touched upon, is automated dependency and package management. This means that you can specify all of your project's dependencies inside your package.json file, then any time you (or anyone else) needs to get started with your project they can just run npm install and immediately have all of the dependencies installed. On top of this, it is also possible to specify what versions your project depends upon to prevent updates from breaking your project.
+
+It is definitely possible to manually download your libraries, copy them into the correct directories, and use them that way. However, as your project (and list of dependencies) grows, this will quickly become time-consuming and messy. It also makes collaborating and sharing your project that much more difficult.
+
+Hopefully this makes it more clear what the purpose of npm is. As a Javascript developer (both client-side and server-side), npm is an indispensable tool in my workflow.
+6)what is transitive dependency?
+In React, as in any Node.js project, a transitive dependency is a package that your project depends on indirectly. This occurs when a package you directly list as a dependency in your package.json file, in turn, has its own dependencies. These "dependencies of your dependencies" are the transitive dependencies.
+For example:
+Your React application directly depends on the react package.
+The react package itself depends on other packages, such as prop-types.
+Therefore, prop-types is a transitive dependency of your React application. You don't explicitly list it in your package.json, but it's required for react to function, and thus, for your application to function.
+Why are they important?
+Automatic Management: Package managers like npm or Yarn automatically handle the installation of transitive dependencies, ensuring all necessary packages are present for your project to run.
+Potential for Issues: While convenient, transitive dependencies can introduce complexities:
+Version Conflicts: Different direct dependencies might rely on different versions of the same transitive dependency, leading to potential conflicts or unexpected behavior.
+Security Vulnerabilities: If a transitive dependency has a security vulnerability, your project can inherit that risk even if your direct dependencies are secure.
+Bundle Size: Unnecessary or duplicate transitive dependencies can increase your application's bundle size, impacting performance.
+Understanding transitive dependencies is crucial for effective dependency management, troubleshooting, and maintaining the security and efficiency of your React applications.
+7)what is gitignore?
+The .gitignore file is a plain text file used in Git repositories to specify intentionally untracked files that Git should ignore. This means Git will not include these files in commits, nor will it list them as untracked when you run git status.
+Purpose of .gitignore:
+Exclude temporary or generated files: This includes build artifacts (e.g., .exe, .o files), log files, temporary files created by your IDE or operating system, and other files that are not essential for the project's source code.
+Prevent sensitive information from being committed: Configuration files containing API keys, passwords, or other sensitive data should be ignored to avoid exposing them in the repository's history.
+Keep the repository clean: By ignoring irrelevant files, you reduce clutter in your Git history and ensure that only relevant code and assets are tracked.
+How it works:
+The .gitignore file contains patterns that match file and directory names. Git uses these patterns to determine which files to exclude from tracking. You can specify individual files, entire directories, or use wildcards to match patterns (e.g., *.log to ignore all files ending with .log).
+Important considerations:
+The .gitignore file itself is typically tracked by Git, ensuring that all collaborators on a project use the same ignore rules.
+You can have a local .gitignore file within a repository, as well as a global .gitignore file configured for your entire Git setup. Local rules take precedence over global rules.
+If a file is already being tracked by Git, adding it to .gitignore will not stop tracking it. You must first remove it from the Git index using git rm --cached <file> before adding it to .gitignore.
+8)what is dev dependencies and normal dependencies?
+In a Node.js project, dependencies are categorized into two main types: regular dependencies and development dependencies. This distinction is important for managing the packages your project needs in different environments.
+Regular Dependencies:       
+These are the packages that your application needs to run in production. They are essential for the core functionality of your application. Regular dependencies are listed under the "dependencies" section in your package.json file. When you run npm install, these packages are installed by default.
+Example of regular dependencies in package.json:
+"dependencies": {
+  "react": "^17.0.2",
+  "express": "^4.17.1"
+}
+
+Development Dependencies:
+These are the packages that are only needed during the development phase of your project. They are not required for the application to run in production. Development dependencies are listed under the "devDependencies" section in your package.json file. When you run npm install --production, these packages are not installed.
+Example of development dependencies in package.json:
+"devDependencies": {
+  "webpack": "^5.38.1",
+  "babel-cli": "^6.26.0",
+  "eslint": "^7.26.0"
+}

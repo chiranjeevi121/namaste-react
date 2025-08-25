@@ -1,5 +1,7 @@
 // const heading=    React.createElement("h1",{id:"heading",xyz:"123"},"Hellow World From React");
-const nesteddiv=React.createElement("div",{id:"parent"},React.createElement("div",{id:"child"},React.createElement("h1",{}, "I am h1 tag")));
+import React from "react";
+import ReactDOM from "react-dom/client";
+const nesteddiv=React.createElement("div",{id:"parent"},React.createElement("div",{id:"child"},React.createElement("h1",{}, "h1 tag  through react")));
 //sibilings
 const sibnesteddiv=React.createElement("div",{id:"parent"},React.createElement("div",{id:"child"},[React.createElement("h1",{}, "I am h1 tag"),React.createElement("h2",{},"i am h2 tag")]));
 //complex nested

@@ -1,0 +1,27 @@
+{
+  "name": "namastev-react",
+  "version": "1.0.0",
+  "description": "learning react from super teacher akshay saini",
+  "keywords": [],
+  "homepage": "https://github.com/chiranjeevi121/namaste-react#readme",
+  "bugs": {
+    "url": "https://github.com/chiranjeevi121/namaste-react/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chiranjeevi121/namaste-react.git"
+  },
+  "license": "ISC",
+  "author": "Akshay saini",
+  "type": "commonjs",
+  "scripts": {
+    "test": "\"\""
+  },
+  "devDependencies": {
+    "parcel": "^2.15.4"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  }
+}
