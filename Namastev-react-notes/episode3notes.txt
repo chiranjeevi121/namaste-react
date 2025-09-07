@@ -1,0 +1,118 @@
+1)what is jsx?
+5
+
+JSX is an extension to javascript syntax. It allows writing code that look similar html, and that similarity makes it feel pretty natural in the context of a front end UI library. JSX is very commonly used with React, though technically you could do react without JSX (it would be combersome, so i don't recommend it), and the JSX syntax can be used with other libraries than react (this isn't common).
+
+In the context of react, a JSX element is a shorthand for calling React.createElement. createElement is the code that React uses for describing what should be on the page. For example, the following JSX:
+
+<div>Hello World</div>
+Transpiles to this code:
+
+React.createElement("div", null, "Hello World");
+Which will return an object that looks roughly like this:
+
+{
+  type: 'div',
+  props: {
+    children: 'Hello World'
+  }
+}
+That object is then used by React to decide what to do next to update the page to match your intention.
+
+
+
+
+
+
+
+
+
+2) Superpowers of JSX
+JSX (JavaScript XML) is a syntax extension for JavaScript primarily used with React to describe UI components. Its "superpowers" or key advantages include:
+Declarative UI Description:
+JSX allows developers to write HTML-like markup directly within JavaScript code, providing a clear and declarative way to describe what the UI should look like. This enhances readability and makes it easier to visualize the component structure.
+Embedding JavaScript Expressions:
+JSX enables the embedding of JavaScript expressions within curly braces {}. This allows for dynamic content, conditional rendering, and integration of logic directly within the UI structure, making components highly flexible.
+Improved Readability and Maintainability:
+By combining markup and logic in a single file, JSX keeps related code together, simplifying component management and making the codebase easier to understand and maintain, especially in large applications.
+Enhanced Error and Warning Messages:
+React can leverage JSX to provide more specific and helpful error and warning messages during development, aiding in quicker debugging and problem resolution.
+Performance Optimizations:
+While JSX itself is not directly understood by browsers, it is transpiled into efficient JavaScript code (e.g., using Babel) that utilizes React.createElement() calls. This compilation process can include optimizations, contributing to performant applications.
+Seamless Integration with React:
+JSX is designed to work hand-in-hand with the React library, allowing developers to efficiently manage component state, props, and lifecycle methods within a familiar syntax.
+Facilitates Reusable Components:
+JSX promotes the creation of reusable UI components, enabling developers to define modular pieces of UI that can be rendered in multiple places throughout an application, leading to more consistent and scalable codebases
+
+3)Role of type attribute in script tag? What options can I use there?
+The type attribute in the HTML <script> tag specifies the type of script or data contained within the element. It provides context to the browser on how to interpret and handle the content.
+Options for the type attribute:
+Omitting the attribute, setting it to an empty string, or to a JavaScript MIME type (e.g., text/javascript, application/javascript, application/ecmascript): This indicates a classic script, which is interpreted as standard JavaScript. While historically text/javascript was common, HTML5 treats text/javascript as the default, making the type attribute optional for classic scripts. It is generally recommended to omit the attribute for classic JavaScript for brevity.
+Code
+
+    <script src="my-classic-script.js"></script>
+    <script type="text/javascript">
+        // Inline classic script
+    </script>
+type="module": This signifies a JavaScript module script. Module scripts enable the use of ES6 import and export statements for modular code organization.
+Code
+
+    <script type="module" src="my-module-script.js"></script>
+type="importmap": This indicates an import map, which is a JSON object used to control the resolution of module specifiers within module scripts.
+Code
+
+    <script type="importmap">
+        {
+            "imports": {
+                "my-library": "/modules/my-library.js"
+            }
+        }
+    </script>
+Any other valid MIME type (e.g., application/json, text/plain): This designates the content as a data block. Data blocks are not processed or executed by the browser as scripts but can be accessed and manipulated by other scripts or tools. This is useful for embedding data directly within the HTML.
+Code
+
+    <script type="application/json" id="my-data">
+        {
+            "name": "Example",
+            "value": 123
+        }
+    </script>
+    ● {TitleComponent} vs {<TitleComponent/>} vs {<TitleComponent></TitleComponent>} in JSX
+    In JSX, the expressions {TitleComponent}, <TitleComponent/>, and <TitleComponent></TitleComponent> represent different ways of interacting with or rendering a React component. 
+{TitleComponent}: This syntax refers to the TitleComponent itself as a JavaScript expression or a variable. It is used when you need to pass the component reference as a prop to another component, or when you are dynamically selecting which component to render based on a condition. It does not directly render the component's output.
+Code
+
+    const MyWrapper = ({ ComponentToRender }) => {
+      return (
+        <div>
+          <h1>Wrapper</h1>
+          <ComponentToRender /> {/* Renders the component passed as a prop */}
+        </div>
+      );
+    };
+
+    // Usage:
+    <MyWrapper ComponentToRender={TitleComponent} />;
+<TitleComponent/>: This represents a self-closing JSX element that renders the TitleComponent. This syntax is used when the component does not have any children (i.e., content between opening and closing tags). It's a concise way to render a component directly.
+Code
+
+    function TitleComponent() {
+      return <h2>My Page Title</h2>;
+    }
+
+    // Usage:
+    <TitleComponent />;
+<TitleComponent></TitleComponent>: This represents a JSX element with explicit opening and closing tags. This syntax is used when the TitleComponent needs to contain children elements or text content. The content placed between the opening and closing tags will be passed to the TitleComponent as its children prop.
+Code
+
+    function TitleComponent({ children }) {
+      return (
+        <div>
+          <h1>{children}</h1>
+        </div>
+      );
+    }
+
+    // Usage:
+    <TitleComponent>This is the actual title content</TitleComponent>;
+In summary, {TitleComponent} is for referencing the component, while <TitleComponent/> and <TitleComponent></TitleComponent> are for rendering the component, with the latter specifically for components that accept children. If a component does not require children, <TitleComponent/> is the preferred and more concise syntax.

@@ -15,7 +15,8 @@
   "author": "Akshay saini",
   "type": "commonjs",
   "scripts": {
-    "test": "\"\""
+   "start":"parcel public/index.html",
+   "build":"parcel build index.html"
   },
   "devDependencies": {
     "parcel": "^2.15.4"
