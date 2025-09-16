@@ -1,0 +1,42 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+
+}
+.logo{
+    width: 100px;
+}
+.navitems>ul{
+    display: flex;
+    margin: 30px 30px;
+}
+    
+.navitems>ul>li{
+padding: 0 10px;
+  list-style-type: none;
+}
+.res-container{
+    display: flex;
+   flex-wrap: wrap;
+   
+}
+.rescard{
+
+    width: 200px;
+    padding: 10px;
+    margin: 5px 10px;
+}
+.rescard:hover{
+ border: 1px solid black;
+ cursor: pointer;
+}
+.body{
+    border: 1px solid black;
+    margin-top: 20px;
+    padding: 5px 10px;
+}
+.res-logo{
+    width: 100%;
+    height: 200px;
+}
