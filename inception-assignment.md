@@ -108,3 +108,15 @@ Advantages: Generally preferred over async for scripts that rely on the DOM stru
 In essence:
 async is useful for independent scripts that can be executed as soon as they're downloaded. 
 defer is better for scripts that need to be executed in a specific order after the DOM is ready. 
+
+/**
+ * header
+ * logo
+ * navitem
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * */

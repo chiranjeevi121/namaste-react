@@ -1,0 +1,124 @@
+What is the difference between Named Export, Default export and * as export?
+In JavaScript ES6 modules, there are distinct ways to export values from a module for use in other modules: Named Exports, Default Exports, and the * as export (also known as namespace import).
+1. Named Exports:
+Purpose: To export multiple specific values (variables, functions, classes) from a module, each identified by its own name.
+Syntax:
+JavaScript
+
+    // module.js
+    export const myVariable = "hello";
+    export function myFunction() { /* ... */ }
+Importing: You must import named exports using their exact names (or an alias using as) within curly braces.
+JavaScript
+
+    // anotherModule.js
+    import { myVariable, myFunction as renamedFunction } from './module.js';
+Characteristics: Allows for selective imports and better tree-shaking (unused exports can be omitted during bundling).
+2. Default Exports:
+Purpose: To export a single, primary value from a module. This value is considered the "main" export of the module.
+Syntax:
+JavaScript
+
+    // module.js
+    const myDefaultValue = { /* ... */ };
+    export default myDefaultValue;
+
+    // Or directly:
+    export default function() { /* ... */ }
+Importing: You can import a default export with any name you choose, and no curly braces are used.
+JavaScript
+
+    // anotherModule.js
+    import anyName from './module.js';
+Characteristics: A module can only have one default export. Useful for exporting the main component or utility of a module. 
+3. * as Export (Namespace Import):
+Purpose: To import all named exports from a module as a single object (namespace object).
+Syntax:
+JavaScript
+
+    // anotherModule.js
+    import * as namespaceName from './module.js';
+Accessing Exports: You access the individual named exports as properties of the namespaceName object.
+JavaScript
+
+    console.log(namespaceName.myVariable);
+    namespaceName.myFunction();
+Characteristics: Does not include the default export. Useful when you want to import many named exports from a module and group them under a single, convenient name
+3)What are React Hooks?
+React Hooks are JavaScript functions introduced in React 16.8 that allow you to use state and other React features within functional components, eliminating the need for class components in many scenarios. They provide a more direct and concise way to manage component logic and side effects.
+Key aspects of React Hooks:
+Enable stateful logic in functional components: Before Hooks, state and lifecycle methods were primarily associated with class components. Hooks like useState allow functional components to manage their own internal state.
+Manage side effects: Hooks like useEffect provide a way to perform side effects (e.g., data fetching, subscriptions, DOM manipulation) in functional components, similar to lifecycle methods in class components.
+Promote reusability of logic: Custom Hooks can be created by combining built-in Hooks, allowing you to encapsulate and reuse complex logic across multiple components.
+Simplify component structure: Hooks help reduce the complexity of components by separating concerns and making code more readable and maintainable, especially compared to the complexities of this binding and lifecycle methods in class components.
+Commonly used built-in Hooks:
+useState: Manages state within a functional component.
+JavaScript
+
+    const [count, setCount] = useState(0);
+useEffect: Handles side effects, such as data fetching, subscriptions, or manually changing the DOM.
+JavaScript
+
+    useEffect(() => {
+      // Perform side effect
+      return () => {
+        // Cleanup function
+      };
+    }, [dependencies]);
+useContext: Allows a component to subscribe to React context without introducing nesting.
+useReducer: An alternative to useState for managing more complex state logic with a reducer function.
+useRef: Provides a way to access the DOM or store mutable values that don't trigger re-renders.
+Hooks fundamentally changed how developers write React components, promoting a functional and more declarative approach to building user interfaces.
+4)why do we need useState hook?
+The useState hook is essential in React functional components because it allows you to add and manage state within these components. Prior to the introduction of Hooks, state management was primarily associated with class components, which could be more complex and less intuitive. Here are several reasons why the useState hook is needed:
+1. State Management in Functional Components:
+Functional components are simpler and more concise than class components, but they lack built-in state management. The useState hook fills this gap by enabling functional components to maintain their own state.
+JavaScript
+
+    import React, { useState } from 'react';
+
+    function Counter() {
+      const [count, setCount] = useState(0); // Initialize state
+      return (
+        <div>
+          <p>You clicked {count} times</p>
+          <button onClick={() => setCount(count + 1)}>Click me</button>
+        </div>
+      );
+    }
+2. Simplified Syntax:
+The useState hook provides a straightforward and easy-to-understand syntax for declaring state variables and updating them. This leads to cleaner and more maintainable code.
+JavaScript
+
+    const [stateVariable, setStateVariable] = useState(initialValue);
+3. Multiple State Variables:
+Unlike class components where state is typically managed as a single object, useState allows you to create multiple independent state variables. This can lead to better organization of state logic.
+JavaScript
+
+    const [name, setName] = useState('');
+    const [age, setAge] = useState(0);
+4. Functional Updates:
+The useState hook supports functional updates, allowing you to update state based on the previous state. This is particularly useful for complex state updates.
+JavaScript
+
+    setCount(prevCount => prevCount + 1);
+5. Reactivity:
+State changes made with useState trigger re-renders of the component, ensuring that the UI stays in sync with the underlying state.
+JavaScript
+
+    const [isVisible, setIsVisible] = useState(true);
+    return (
+      {isVisible && <p>This text is visible</p>}
+      <button onClick={() => setIsVisible(!isVisible)}>Toggle Visibility</button>
+    );
+6. Integration with Other Hooks:
+The useState hook can be easily combined with other React hooks, such as useEffect, to manage side effects based on state changes.
+JavaScript
+
+    const [data, setData] = useState(null);
+    useEffect(() => {
+      fetchData().then(response => setData(response));
+    }, []);
+In summary, the useState hook is a fundamental tool in React that enables functional components to manage state effectively, leading to more modular, readable, and maintainable code.
+
+
