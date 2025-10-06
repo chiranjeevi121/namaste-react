@@ -1,0 +1,197 @@
+1) What is a Microservice?
+A microservice is a small, independently deployable, and self-contained software component designed to perform a single, specific business function within a larger application. These services communicate with each other, typically over lightweight APIs, to form a collective system, offering advantages like flexibility, faster development, independent scaling, and improved fault isolation compared to traditional monolithic applications.  
+Key Characteristics
+Small & Focused: Each microservice handles one specific business capability or task, such as user authentication or order processing. 
+Independent: Microservices can be developed, deployed, updated, and scaled independently of one another. 
+Loosely Coupled: They are not tightly integrated, meaning changes to one service have minimal impact on others. 
+Autonomous: Each service runs its own process, can have its own database, and may even be written in a different programming language or use different frameworks. 
+Communication via APIs: Microservices communicate using well-defined, lightweight communication protocols, often through APIs or messaging systems. 
+Benefits
+Agility & Speed: Teams can work on services independently, leading to faster feature development and deployment. 
+Scalability: Individual services that experience high demand can be scaled up without scaling the entire application. 
+Resilience: If one microservice fails, it doesn't bring down the entire application, improving fault tolerance. 
+Technology Diversity: Different technologies can be used for different services, allowing teams to choose the best tools for each task. 
+2) What is Monolith architecture?
+Monolithic architecture is a software development approach where an application's components—like the user interface, business logic, and data access layer—are packaged and deployed as a single, self-contained unit or codebase. This approach offers simplicity and ease of initial development and deployment, but it can lead to challenges with scaling, maintenance, and flexibility as the application grows in complexity.  
+Key Characteristics
+Single Deployment Unit: The entire application, including all its features and functionalities, is built and deployed as a single artifact. 
+Unified Codebase: All code for the different parts of the application resides in one large, shared codebase. 
+Tight Coupling: Components within the monolith are tightly connected, meaning a change in one part can potentially affect the entire system. 
+Shared Resources: Components typically share resources like memory, threads, and compute resources within a single process. 
+Advantages
+Simplicity: Easier to understand, develop, and deploy, especially for small applications. 
+Easier Initial Development: Development is often straightforward as all code is in one place. 
+Simpler Testing: Testing can be simpler due to the single, integrated nature of the application. 
+Straightforward Deployment: Only one codebase needs to be deployed, simplifying the rollout of updates. 
+Disadvantages 
+Scalability Issues: Scaling requires duplicating the entire application, which can be inefficient if only one part needs to scale.
+Tight Coupling: A small change in one component can have widespread, unintended consequences on other parts of the system.
+Complex Maintenance: As the application grows, the codebase can become large and complex, making it harder to maintain and update.
+Single Point of Failure: A failure in any part of the monolith can potentially bring down the entire application.
+3) What is the difference between Monolith and Microservice?
+Monolithic Architecture
+Structure: The entire application is built as a single, unified unit with a shared codebase. 
+Deployment: The entire application is deployed as a single executable. 
+Scalability: The entire application must be scaled together, even if only one part is under heavy load, which can be inefficient. 
+Development: Easier to develop initially and manage for smaller projects, but becomes complex and time-consuming to modify as the application grows. 
+Resilience: A failure in one component can bring down the entire application. 
+Microservices Architecture 
+Structure: The application is broken down into many small, independent services, each responsible for a specific business function. 
+Deployment: Each microservice is deployed independently. 
+Scalability: Each service can be scaled independently, leading to more efficient resource utilization. 
+Development: Supports agility and allows for rapid development and updates by separate teams. 
+Resilience: If one service fails, other services can continue to operate, making the system more resilient. 
+4)Why do we need a useEffect Hook?
+The useEffect Hook in React is necessary for managing "side effects" in functional components. Side effects are operations that interact with the outside world or have observable effects beyond the component's rendering. Examples include:
+Data Fetching: Making API calls to retrieve data from a server.
+DOM Manipulation: Directly interacting with the browser's Document Object Model (e.g., changing the document title, adding/removing event listeners).
+Timers and Intervals: Setting up setTimeout or setInterval for delayed or recurring actions.
+Subscriptions: Subscribing to external data sources or events.
+Why useEffect is needed:
+Separation of Concerns: It separates side effects from the component's rendering logic. Placing side effects directly within the component body can lead to issues with re-renders and make the component's behavior harder to reason about. useEffect ensures these operations run after the component has rendered.
+Lifecycle Management: It provides a way to emulate the lifecycle methods of class components (like componentDidMount, componentDidUpdate, and componentWillUnmount) in functional components.
+Mounting: Effects can run when the component first renders.
+Updating: Effects can re-run when specific dependencies (state or props) change.
+Unmounting: A cleanup function can be returned from useEffect to perform actions when the component is removed from the DOM, such as unsubscribing from events or clearing timers, to prevent memory leaks.
+Synchronization with External Systems: It allows a component to connect and synchronize with systems outside of React, like the browser's DOM, network requests, or third-party libraries.
+Dependency Array for Control: The optional dependency array allows for fine-grained control over when the effect re-runs, preventing unnecessary executions and optimizing performance.
+5)What is Optional Chaining?
+Optional chaining is a programming feature, primarily in JavaScript, that uses the ?. operator to safely access nested properties or call methods on objects without throwing an error if an intermediate property is null or undefined. It "short-circuits" the expression, returning undefined instead of an error if any part of the chain is missing, leading to cleaner, more readable, and safer code than traditional explicit null checks.  
+How it works
+When you use the ?. operator, it checks if the property or method before it is null or undefined: 
+If it's null or undefined, the expression immediately stops and returns undefined.
+If it exists, the expression continues to the next part of the chain, or the method is called.
+Example
+Consider an object structure like this, where some nested properties might be missing: 
+JavaScript
+
+const user = {
+  profile: {
+    address: {
+      street: "123 Main St"
+    }
+  }
+};
+Without optional chaining, trying to access a deeply nested property might cause an error: 
+JavaScript
+
+// This would cause an error if profile or address were undefined
+const street = user.profile.address.street; 
+With optional chaining, you can access it safely: 
+JavaScript
+
+// Safely access the street, or undefined if any part of the chain is missing
+const street = user.profile?.address?.street; 
+If user.profile was undefined or null, the entire expression would evaluate to undefined. 
+Benefits
+Reduces Verbosity: Eliminates the need for multiple if statements or ternary operators to check for null or undefined at each level of nesting. 
+Prevents Errors: Stops the program from crashing by returning undefined instead of throwing a TypeError when trying to access properties of a non-existent object. 
+Improves Readability: Makes code more concise and easier to understand, especially when dealing with complex, nested data structures from APIs. 
+6)What is Shimmer UI?
+Shimmer UI is a user experience technique that displays an animated, shimmering placeholder instead of a traditional spinning icon or blank screen while content is loading. It mimics the structure and layout of the final content with smooth, animated gradients, providing visual feedback to the user and improving the perception of speed and responsiveness. This technique helps to keep users engaged, reduces perceived wait times, and creates a more polished, cohesive visual experience compared to cluttered spinners.  
+How it works
+Placeholder shapes: Shimmer UI uses placeholder shapes (like rectangles for text or circles for images) that match the final content's layout. 
+Animated gradient: A smooth, gliding gradient effect moves across these placeholders, creating a shimmering or pulsating animation. 
+Smooth transition: When the actual data is fetched from the server, the real content smoothly replaces the shimmering placeholders, making the transition appear seamless. 
+Benefits of Shimmer UI
+Improves perceived performance: By showing content as it loads, the app feels faster and more responsive. 
+Enhances user experience: It keeps users engaged and provides a sense of progress during the loading period. 
+Sets expectations: The placeholder structure gives users an idea of what content they are waiting for, preventing layout shifts and user frustration. 
+Modern and polished look: It provides a more professional and cohesive visual experience than multiple spinners, especially when multiple data points load independently. 
+Lightweight: Shimmer UI often uses lightweight animations that don't require heavy dependencies. 
+When to use it
+Data fetching: It's ideal for loading content from APIs or databases. 
+High-traffic pages: Use it on busy pages where data takes a few seconds to load. 
+Complex layouts: When there are multiple elements loading simultaneously, shimmers provide a consistent and unified indicator. 
+7)What is the difference between JS expression and JS statement
+In JavaScript, the fundamental difference between an expression and a statement lies in whether they produce a value. 
+Expressions:
+An expression is a piece of code that evaluates to a single value.
+This value can be of any data type, such as a number, string, boolean, object, or function.
+Expressions can be used anywhere a value is expected, such as in variable assignments, function arguments, or as the return value of a function.
+Examples:
+JavaScript
+
+        5; // Evaluates to the number 5
+        "hello"; // Evaluates to the string "hello"
+        x + y; // Evaluates to the sum of x and y
+        myFunction(); // Evaluates to the return value of myFunction
+        true; // Evaluates to the boolean true
+Statements:
+A statement is an instruction that performs an action and does not necessarily produce a value.
+Statements are executed by the JavaScript engine to control program flow or perform operations.
+They are the "sentences" of JavaScript, providing instructions for the computer to follow.
+Examples:
+JavaScript
+
+        let x = 10; // Declares a variable and assigns a value (performs an action)
+        if (condition) {
+            // ... code block ...
+        } // Controls program flow based on a condition
+        for (let i = 0; i < 5; i++) {
+            // ... code block ...
+        } // Loops through a block of code
+        console.log("Hello"); // Prints a message to the console (performs an action)
+Key Differences Summarized:
+Feature
+Expression
+Statement
+Output
+Produces a value
+Performs an action; may not produce a value
+Usage
+Can be used where a value is expected
+Executed for their side effects or control flow
+Examples
+5, "text", a + b, functionCall()
+if, for, while, let, return
+In essence, while statements dictate the overall structure and flow of your program, expressions are the building blocks that provide the values needed for those operations.
+8)What is Conditional Rendering in react, explain with a code example
+Conditional rendering in React is a technique used to render different components or elements based on certain conditions, typically using JavaScript conditional statements like if-else or the ternary operator. This allows developers to create dynamic user interfaces that change based on the application's state or props.
+Example:
+import React, { useState } from 'react';
+function UserGreeting() {
+  return <h1>Welcome back!</h1>;
+}
+function GuestGreeting() {
+  return <h1>Please sign up.</h1>;
+}
+function Greeting(props) {
+  const isLoggedIn = props.isLoggedIn;
+  if (isLoggedIn) {
+    return <UserGreeting />;
+  }
+  return <GuestGreeting />;
+}
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  return (
+    <div>
+      <Greeting isLoggedIn={isLoggedIn} />
+      <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+        {isLoggedIn ? 'Logout' : 'Login'}
+      </button>
+    </div>
+  );
+}
+export default App;
+In this example:
+- We have two components, UserGreeting and GuestGreeting, that display different messages based on whether the user is logged in or not.
+- The Greeting component takes a prop isLoggedIn and uses an if statement to decide which greeting to render.
+- The App component manages the isLoggedIn state and provides a button to toggle between logged in and logged out states.
+- When the button is clicked, it toggles the isLoggedIn state, which in turn updates the rendered greeting message accordingly.
+In summary, conditional rendering in React allows you to create dynamic and responsive user interfaces by rendering different components based on the application's state or props.
+9)What is CORS?
+CORS, or Cross-Origin Resource Sharing, is a security mechanism in web browsers that allows a web page from one domain to access resources from a different domain. It works by the server sending special HTTP headers to the browser, indicating if requests from other origins are permitted. CORS is an extension of the Same-Origin Policy (SOP), which normally prevents cross-origin requests to protect user data from malicious sites.  
+Why is CORS necessary?
+Enabling Modern Web Applications: Many complex web applications need to load resources (like fonts, images, or data from APIs) from different domains. Without CORS, a browser would block these requests, limiting the functionality of modern web apps. 
+Security: By default, the Same-Origin Policy prevents a website on domain A from making requests to domain B. This is crucial to prevent a malicious website from stealing user data from a legitimate website you're logged into. CORS provides a controlled way to allow these requests, but only when the target server explicitly permits it. 
+How it works:
+1. The Browser Checks: When your web application (on origin A) requests a resource from another origin (origin B), the browser first sends an HTTP request. 
+2. The Preflight Request (for "complex" requests): For requests that aren't simple (e.g., those using methods other than GET/POST or custom headers), the browser sends a "preflight" request (an OPTIONS request) to origin B. 
+3. The Server Responds: The server at origin B receives the OPTIONS request and responds with an HTTP header, typically Access-Control-Allow-Origin, that specifies which origins (like A) are allowed to access its resources. 
+4. The Browser Acts:
+If the server's response indicates that origin A is permitted, the browser then sends the actual request to origin B. 
+If the origin is not listed as allowed, the browser blocks the request and prevents the response from being returned to the page. 
+In Summary:
+CORS allows for a controlled interaction between different origins, ensuring that servers have the opportunity to approve which external origins can access their resources, thereby enhancing web security while still enabling flexible web application development. 
