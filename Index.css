@@ -63,3 +63,16 @@ flex-direction: row;
     margin: 10px;
     display: flex;
 }
+.Login-form{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 300px;
+}
+Link{
+    text-decoration: none;
+}
+.btn-login>LinK{
+margin: 20px 30px;
+padding: 10px;
+}

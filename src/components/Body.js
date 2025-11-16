@@ -1,6 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
 import {useEffect, useState} from "react";
 import Shimmer from "./Shimmer";
+import {Link} from "react-router-dom"
 const Body=()=>{
    let [listResuseSt,setlistResuseSt]=useState([]);
    let [filteredResinfo,setfilteredResinfo]=useState([]);
@@ -10,11 +11,11 @@ const Body=()=>{
    },[]);
    const fetchData= async ()=>
       {
-        const jsonData=await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9352403&lng=77.624532&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+        const jsonData=await fetch("https://namastedev.com/api/v1/listRestaurants");
          const data=await jsonData.json();
          // console.log(data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants);
-         setlistResuseSt(data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-         setfilteredResinfo(data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+         setlistResuseSt(data?.data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+         setfilteredResinfo(data?.data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
    }
    return listResuseSt.length===0?  <Shimmer/>: (
       <div className="body">
@@ -30,16 +31,16 @@ const Body=()=>{
          }}>Search</button>
         </div>
          <button className="filter-btn" onClick={()=>{
-            let filterresList=listResuseSt.filter((res)=>res.info.avgRating>4.5);
+            let filterresList=listResuseSt.filter((res)=>res.info.avgRating>4.0);
            setlistResuseSt(filterresList);
          }}>TopRatedRestaurants</button>
          </div>
        <div className="res-container">
+        
        {filteredResinfo.map((res,index)=>(
-          <RestaurantCard key={index} resObj={res}/>
+          <Link key={index} to={"/restaurants/"+res.info.id}><RestaurantCard  resObj={res}/></Link>
        ))}
        </div>
-       
       </div>
    );
 }
