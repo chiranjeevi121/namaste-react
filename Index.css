@@ -76,3 +76,8 @@ Link{
 margin: 20px 30px;
 padding: 10px;
 }
+.user-card{
+    width: 500px;
+    height: 250px;
+    border: 1px solid black;
+}
