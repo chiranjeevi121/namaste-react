@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import {RES_INFO} from "../utils/constants"
 const useRestaurantInfo=(resId)=>{
-     const [resInfo,setResInfo]=useState();
+     const [resInfo,setResInfo]=useState(null);
     useEffect(()=>{
         fetchData();
     })
     const fetchData= async ()=>{
+        debugger;
         const data=await fetch(RES_INFO+resId);
         const json =await data.json();
-        setResInfo(json.data);
-
+        setResInfo(json);
     }
     return resInfo;
 }
