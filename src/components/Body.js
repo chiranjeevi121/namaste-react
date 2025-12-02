@@ -24,23 +24,23 @@ const Body=()=>{
    }
    return listResuseSt.length===0?  <Shimmer/>: (
       <div className="body">
-      <div className="filter-res">
+      <div className="flex">
         <div className="search">
-         <input type="text" className="search-box" value={searchText} onChange={(e)=>{
+         <input type="text" className="m-4  border" value={searchText} onChange={(e)=>{
            setSearchText(e.target.value);
          }}/>
          <button onClick={()=>{
              let filteredRes=listResuseSt.filter((res)=>
                res.info.name.toLowerCase().includes(searchText.toLowerCase()));
                setfilteredResinfo(filteredRes);
-         }}>Search</button>
+         }} className=" m-4 px-4 py-2 bg-green-300  rounded-lg">Search</button>
         </div>
-         <button className="filter-btn" onClick={()=>{
+         <button className="m-4 px-4 py-2 bg-gray-400 rounded-lg" onClick={()=>{
             let filterresList=listResuseSt.filter((res)=>res.info.avgRating>4.0);
            setlistResuseSt(filterresList);
          }}>TopRatedRestaurants</button>
          </div>
-       <div className="res-container">
+       <div className="flex flex-wrap">
         
        {filteredResinfo.map((res,index)=>(
           <Link key={index} to={"/restaurants/"+res.info.id}><RestaurantCard  resObj={res}/></Link>
