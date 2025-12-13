@@ -1,5 +1,5 @@
 // const heading=    React.createElement("h1",{id:"heading",xyz:"123"},"Hellow World From React");
-import React ,{lazy,Suspense} from "react";
+import React ,{lazy,Suspense, useEffect, useState} from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -11,6 +11,7 @@ import RestaurantInfo from "./components/RestaurantInfo";
 import { createBrowserRouter,RouterProvider,Outlet,defer } from "react-router-dom";
 import ResgForm from "./components/ResgForm";
 import Grocery from "./components/Grocery";
+import UserContext from "./utils/UserContext";
 // const Grocery=lazy(()=>import("./components/Grocery"));
 const getGrocery=() => {
     // This simulates a slow API call that returns a Promise
@@ -21,11 +22,18 @@ const getGrocery=() => {
     });
 };
 const AppLayout=()=>{
+   const [userName,setuserName]=useState();
+   useEffect(()=>{
+      //consider we have backed api fro aithentication and returned logined user
+      setuserName("chiru") 
+   },[])
     return (
+      <UserContext.Provider value={{loggedInUser:userName,setuserName } }>
       <div className="applayoutcontainer">
    <Header/>
    <Outlet/>
 </div>
+</UserContext.Provider>
     );
 }
  const appRouter=createBrowserRouter([{

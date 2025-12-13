@@ -3,12 +3,12 @@ const User=({name})=>{
     const [count0]=useState(0);
     const [count1]=useState(1);
     useEffect(()=>{
-        console.log("useEffect");
+        // console.log("useEffect");
         const timer=setInterval(()=>{
-            console.log("hello");
+            // console.log("hello");
         },1000);
         return ()=>{
-            console.log("useeefect on mounting pahe")
+            // console.log("useeefect on mounting pahe")
             clearInterval(timer);
         }
     })
